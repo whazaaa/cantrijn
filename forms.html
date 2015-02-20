@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Forms</title>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="">
+		<meta name="author" content="Stagiair">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="chosen.css">
+		<link rel="stylesheet" href="index.css" type="text/css"/>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="js/jquery.validate.min.js"></script>
+		<script src="js/iban.js"></script>
+		<script src="js/postalcodeNL.js"></script>
+		<script src="js/dateNL.js"></script>
+		<script src="js/messages_nl.js"></script>
+		<script src="js/jquery.mask.js"></script>
+		<script src="js/chosen.jquery.js" type="text/javascript"></script>
+		<script>
+			xhr = new XMLHttpRequest();
+
+			$(document).ready(function() {
+				$(".chosen-select").chosen({
+					width : "200px"
+				});
+				// MASKS
+				$('#date').mask('00/00/0000', {
+					placeholder : "../../...."
+				});
+				$('#postalcodeNL').mask('0000SS', {
+					placeholder : "1234AB"
+				});
+				$('#iban').mask('SS00 AAAA AAAA AAAA AAAA AAAA AAAA', {
+					placeholder : "NL12 BANK 1234 5678 90"
+				});
+				$('#telephone').mask('0#', {
+					placeholder : "0123456789"
+				});
+				$('#housenr').mask('0#');
+				// validate signup form on keyup and submit
+				$(".selector").validate({
+					validClass : "success"
+				});
+				// http:// CHECK
+				$("#url").focusout(function() {
+					var url = $('#url').val();
+					if (url.indexOf("http://") == -1 && url.indexOf("https://") == -1 && url != "") {
+						$('#url').val('http://' + url);
+					}
+				});
+				// VALIDATION
+				$("#signupForm").validate({
+					success : function(label) {
+						label.addClass("valid").html('<img src="vinkje.jpg" alt="Ok!" class="check"/>');
+						// POSTALCODE ADDRESS GENERATION
+						var id = label.attr('id');
+						if (id == "postalcodeNL-error") {
+							var postcode = $('#postalcodeNL').val();
+							$('.address').attr('style', 'display: block;float:left;margin-right: 20%;');
+							$.ajax({
+								url : 'http://api.postcodeapi.nu/' + postcode,
+								type : 'GET',
+								datatype : 'json',
+								success : function(address) {
+									$('#street').val(address.resource.street);
+									$('#city').val(address.resource.town);
+									$('#municipality').val(address.resource.municipality);
+								},
+								error : function() {
+								},
+								beforeSend : setHeader
+							});
+						} else if (id == "housenr-error") {
+							var postcode = $('#postalcodeNL').val();
+							var number = $('#housenr').val();
+							if (postcode != '') {
+								$.ajax({
+									url : 'http://api.postcodeapi.nu/' + postcode + '/' + number,
+									type : 'GET',
+									datatype : 'json',
+									success : function(address) {
+										$('#street').val(address.resource.street);
+										$('#city').val(address.resource.town);
+										$('#municipality').val(address.resource.municipality);
+									},
+									error : function() {
+									},
+									beforeSend : setHeader
+								});
+							};
+						}
+					},
+					rules : {
+						username : {
+							required : true,
+							minlength : 2
+						},
+						password : {
+							required : true,
+							minlength : 5
+						},
+						email : {
+							required : true,
+							email : true,
+						},
+						url : {
+							required : false,
+							url : true,
+							ignore : false
+						},
+						telephone : {
+							required : true,
+							minlength : 10,
+							digits : true
+						},
+						iban : {
+							required : false,
+							iban : true
+						},
+						postalcodeNL : {
+							postalcodeNL : true
+						},
+						housenr : {
+							minlength : 1
+						},
+						date : {
+							dateNL : true
+						},
+					},
+					messages : {
+						email : "Vul hier uw emailadres in.",
+						telephone : "Vul hier uw telefoonnummer in.",
+					},
+				});
+			});
+			// POSTALCODE API ACCESS
+			function setHeader(xhr) {
+				xhr.setRequestHeader('Accept', '/*/');
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-');
+				xhr.setRequestHeader('Accept-Language', 'en');
+				xhr.setRequestHeader('Api-Key', '0695ec04e26c4016e5bdbf8b748ac716f7bc88cc');
+			}
+
+		</script>
+	</head>
+	<body class="body">
+
+		<header class="mainHeader">
+			<img src="starwars.jpg" alt="Logo"/>
+
+			<nav>
+				<ul>
+					<li >
+						<a href="index.html">Home</a>
+					</li>
+					<li class="active">
+						<a href="forms.html">Forms</a>
+					</li>
+					<li>
+						<a href="facebook.html">Facebook</a>
+					</li>
+					<li>
+						<a href="#">Contact</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<div class="mainContent">
+			<div class="content">
+				<article class="topcontent">
+					<header>
+						<h2><a href="#" title="First post">Formulier</a></h2>
+					</header>
+
+					<footer>
+						<p class="post-info">
+							Een test formulier
+						</p>
+					</footer>
+
+					<content>
+
+						<form id="signupForm" method="get" action="">
+							<fieldset>
+								<p class="fields">
+									<label class="title" for="email">Email&#42;</label>
+									<input id="email" name="email" type="email" />
+								</p>
+								<p class="fields">
+									<label class="title" for="username">Username&#42;</label>
+									<input id="username" name="username" type="text" />
+								</p>
+								<p class="fields">
+									<label class="title" for="password">Password&#42;</label>
+									<input type="password" name="password" id="password" />
+								</p>
+								<p class="fields">
+									<label class="title" for="url">Website</label>
+									<input id="url" type="url" name="url" placeholder="http://">
+								</p>
+								<p class="fields">
+									<label class="title" for="telephone">Telefoon&#42;</label>
+									<input id="telephone" name="telephone" type="tel" />
+								</p>
+								<p class="fields">
+									<label class="title" for="iban">IBAN-nummer</label>
+									<input id="iban" name="iban" type="text" size="25"/>
+								</p>
+								<p class="fields">
+									<label class="title" for="postalcodeNL">Postcode</label>
+									<input id="postalcodeNL" name="postalcodeNL" type="text"/>
+								</p>
+								<p class="fields">
+									<label class="title" for="housenr">Huisnummer</label>
+									<input id="housenr" name="housenr" type="number" />
+								</p>
+								<p class="address" class="fields" >
+									<label class="title" for="street">Straat</label>
+									<input id="street" name="street" type="text"/>
+								</p>
+								<p class="address" class="fields"  >
+									<label class="title" for="city">Stad</label>
+									<input id="city" name="city" type="text" />
+								</p>
+								<p class="address" class="fields" >
+									<label class="title" for="municipality">Gemeente</label>
+									<input id="municipality" name="municipality" type="text" />
+								</p>
+								<p class="fields">
+									<label class="title" for="date">Datum</label>
+									<input id="date" name="date" type="text"/>
+								</p>
+								<p class="fields">
+									<label class="title" for="auto">Auto</label>
+									<select class="chosen-select" multiple="multiple" id="auto" name="auto" data-placeholder="Kies een auto">
+										<option value="volvo">Volvo</option>
+										<option value="saab">Saab</option>
+										<option value="mercedes">Mercedes</option>
+										<option value="audi">Audi</option>
+									</select>
+								</p>
+								<p class="fields">
+									<input type="submit" value="Submit"/>
+									<input type="reset" value="Reset" class="reset"/>
+								</p>
+							</fieldset>
+						</form>
+
+					</content>
+
+				</article>
+			</div>
+		</div>
+
+		<aside class="top-sidebar">
+			<article>
+				<h2>Log in</h2>
+				<iframe width="100%" height="160" frameborder="0" allowtransparency="true" src="http://demonl.cmember.nl/cmember/widget?naam=inloggen&parameters=wcode&waarden=F374996OVQ"></iframe>
+			</article>
+		</aside>
+
+		<aside class="middle-sidebar">
+			<article>
+				<h2>Berichten</h2>
+				<iframe width="100%" height="200" frameborder="0" allowtransparency="true" src="http://demonl.cmember.nl/cmember/widget?naam=berichten&parameters=wcode,aantal_berichten&waarden=F374996OVQ,3"></iframe>
+			</article>
+		</aside>
+
+		<aside class="bottom-sidebar">
+			<article>
+				<h2>Wachtwoord vergeten?</h2>
+				<iframe width="100%" height="170" frameborder="0" allowtransparency="true" src="http://demonl.cmember.nl/cmember/widget?naam=wachtwoord_vergeten&parameters=wcode&waarden=F374996OVQ"></iframe>
+			</article>
+		</aside>
+
+		<footer class="mainFooter">
+			<p>
+				Copyright &copy; Josja de Greef
+			</p>
+		</footer>
+
+	</body>
+</html>
