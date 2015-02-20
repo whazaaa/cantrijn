@@ -96,9 +96,11 @@
 				});
 			}
 			
-			FB.logout(function(response) {
-        		console.log('Successful logout for: ' + response.name);// Person is now logged out
-    		});
+			function showUserInfo() {
+				FB.logout(function(response) {
+        			console.log('Successful logout for: ' + response.name);// Person is now logged out
+    			});
+    		}
     		
     		function showUserInfo() {
     			FB.api('/me', function(response) {//Will return an array of values
