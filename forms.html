@@ -18,8 +18,11 @@
 		<script src="js/messages_nl.js"></script>
 		<script src="js/jquery.mask.js"></script>
 		<script src="js/chosen.jquery.js" type="text/javascript"></script>
+		<script src="js/mailcheck.min.js"></script>
 		<script>
 			xhr = new XMLHttpRequest();
+			
+			Mailcheck.defaultDomains.push('cantrijn.nl', 'live.nl'); // extend existing domains
 
 			$(document).ready(function() {
 				$(".chosen-select").chosen({
@@ -90,6 +93,16 @@
 									beforeSend : setHeader
 								});
 							};
+						}
+						else if (id == "email-error"){
+							$('#email').mailcheck({
+								suggested : function(element, suggestion) {
+									label.addClass("suggestion").html('Bedoelde u misschien ' + suggestion.full +"?");
+									label.click(function(){$('#email').val(suggestion.full);});
+								},
+								empty : function(element) {
+								}
+							});
 						}
 					},
 					rules : {
