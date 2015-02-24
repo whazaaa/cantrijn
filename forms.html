@@ -19,7 +19,7 @@
 		<script src="js/jquery.mask.js"></script>
 		<script src="js/chosen.jquery.js" type="text/javascript"></script>
 		<script src="js/mailcheck.min.js"></script>
-		<script src="js/sift3B.js"></script>
+		<script src="js/sift4.js"></script>
 		<script>
 			xhr = new XMLHttpRequest();
 			
@@ -99,7 +99,8 @@
 						// EMAIL SUGGESTION
 						else if (id == "email-error"){
 							
-							var firstname = $('#firstname').val();
+							var firstname = $('#firstname').val().toLowerCase();
+							var fullname = firstname + $('#middle').val() + $('#sirname').val().toLowerCase();
 							var email = $('#email').val();
 							var address = email.substr(0, email.indexOf('@'));
 							var domain = email.split('@')[1];
@@ -108,23 +109,35 @@
 							$('#email').mailcheck({
 								suggested : function(element, suggestion) {
 									address = suggestion.address;
-									if(sift3B(firstname, suggestion.address, 5, 10) < 5){
+									if(sift4(firstname, suggestion.address, 5, 10) < 4 && sift4(firstname, suggestion.address, 5, 10) != 0){
 										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ firstname + "@" + suggestion.domain +"</span>?");
+										label.click(function(){$('#email').val(firstname + "@" + suggestion.domain);});
+										suggested = true;
+									}
+									else if(sift4(fullname, suggestion.address, 5, 10) < 4 && sift4(fullname, suggestion.address, 5, 10) != 0){
+										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ fullname + "@" + suggestion.domain +"</span>?");
+										label.click(function(){$('#email').val(fullname + "@" + suggestion.domain);});
 										suggested = true;
 									}
 									else{
 										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ suggestion.full +"</span>?");
+										label.click(function(){$('#email').val(suggestion.full);});
+										suggested = true;
 									}
 									label.attr('style', 'color:#000;');
-									label.click(function(){$('#email').val(suggestion.full);});
 								},
 								empty : function(element) {
 								}
 							});
-							if(sift3B(firstname, address, 5, 10) < 5 && !suggested){
+							if(sift4(firstname, address, 5, 10) < 4 && !suggested && sift4(firstname, address, 5, 10) != 0){
 								label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ firstname + "@" + domain +"</span>?");
 								label.attr('style', 'color:#000;');
 								label.click(function(){$('#email').val(firstname + "@" + domain);});
+							}
+							else if(sift4(fullname, address, 5, 10) < 4 && !suggested && sift4(fullname, address, 5, 10) != 0){
+								label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ fullname + "@" + domain +"</span>?");
+								label.attr('style', 'color:#000;');
+								label.click(function(){$('#email').val(fullname + "@" + domain);});
 							}
 						}
 					},
@@ -227,6 +240,14 @@
 								<p class="fields">
 									<label class="title" for="firstname">Voornaam</label>
 									<input id="firstname" name="firstname" type="text" />
+								</p>
+								<p class="fields">
+									<label class="title" for="middle">Tussenvoegsel</label>
+									<input id="middle" name="middle" type="text" />
+								</p>
+								<p class="fields">
+									<label class="title" for="sirname">Achternaam</label>
+									<input id="sirname" name="sirname" type="text" />
 								</p>
 								<p class="fields">
 									<label class="title" for="email">Email&#42;</label>

@@ -106,6 +106,10 @@ input{
 	display:none;
 }
 
+#email{
+	text-transform:lowercase;
+}
+
 #iban{
 	text-transform: uppercase;
 }
