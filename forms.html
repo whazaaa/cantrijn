@@ -111,11 +111,9 @@
 									if(sift3B(firstname, suggestion.address, 5, 10) < 5){
 										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ firstname + "@" + suggestion.domain +"</span>?");
 										suggested = true;
-										alert(sift3B(firstname, suggestion.address, 5, 10));
 									}
 									else{
 										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ suggestion.full +"</span>?");
-										alert(sift3B(firstname, suggestion.address, 5, 10));
 									}
 									label.attr('style', 'color:#000;');
 									label.click(function(){$('#email').val(suggestion.full);});
