@@ -101,6 +101,8 @@
 							
 							var firstname = $('#firstname').val().toLowerCase();
 							var fullname = firstname + $('#middle').val() + $('#sirname').val().toLowerCase();
+							var initial = firstname.charAt(0).toLowerCase();
+							var initialname = initial + "." + $('#middle').val() + $('#sirname').val().toLowerCase();
 							var email = $('#email').val();
 							var address = email.substr(0, email.indexOf('@'));
 							var domain = email.split('@')[1];
@@ -117,6 +119,11 @@
 									else if(sift4(fullname, suggestion.address, 5, 10) < 4 && sift4(fullname, suggestion.address, 5, 10) != 0){
 										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ fullname + "@" + suggestion.domain +"</span>?");
 										label.click(function(){$('#email').val(fullname + "@" + suggestion.domain);});
+										suggested = true;
+									}
+									else if(sift4(initialname, suggestion.address, 5, 10) < 4 && sift4(initialname, suggestion.address, 5, 10) != 0){
+										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ initialname + "@" + suggestion.domain +"</span>?");
+										label.click(function(){$('#email').val(initialname + "@" + suggestion.domain);});
 										suggested = true;
 									}
 									else{
@@ -138,6 +145,11 @@
 								label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ fullname + "@" + domain +"</span>?");
 								label.attr('style', 'color:#000;');
 								label.click(function(){$('#email').val(fullname + "@" + domain);});
+							}
+							else if(sift4(initialname, address, 5, 10) < 4 && !suggested && sift4(initialname, address, 5, 10) != 0){
+								label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ initialname + "@" + domain +"</span>?");
+								label.attr('style', 'color:#000;');
+								label.click(function(){$('#email').val(initialname + "@" + domain);});
 							}
 						}
 					},
