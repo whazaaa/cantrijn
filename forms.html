@@ -113,22 +113,22 @@
 									address = suggestion.address;
 									if(sift4(firstname, suggestion.address, 5, 10) < 4 && sift4(firstname, suggestion.address, 5, 10) != 0){
 										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ firstname + "@" + suggestion.domain +"</span>?");
-										label.click(function(){$('#email').val(firstname + "@" + suggestion.domain);});
+										label.click(function(){$('#email').val(firstname + "@" + suggestion.domain); this.innerHTML="";});
 										suggested = true;
 									}
 									else if(sift4(initialname, suggestion.address, 5, 10) < 4 && sift4(initialname, suggestion.address, 5, 10) != 0 && address.indexOf('.') > 0){
 										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ initialname + "@" + suggestion.domain +"</span>?");
-										label.click(function(){$('#email').val(initialname + "@" + suggestion.domain);});
+										label.click(function(){$('#email').val(initialname + "@" + suggestion.domain); this.innerHTML="";});
 										suggested = true;
 									}
 									else if(sift4(fullname, suggestion.address, 5, 10) < 4 && sift4(fullname, suggestion.address, 5, 10) != 0){
 										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ fullname + "@" + suggestion.domain +"</span>?");
-										label.click(function(){$('#email').val(fullname + "@" + suggestion.domain);});
+										label.click(function(){$('#email').val(fullname + "@" + suggestion.domain); this.innerHTML="";});
 										suggested = true;
 									}
 									else{
 										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ suggestion.full +"</span>?");
-										label.click(function(){$('#email').val(suggestion.full);});
+										label.click(function(){$('#email').val(suggestion.full); this.innerHTML="";});
 										suggested = true;
 									}
 									label.attr('style', 'color:#000;');
@@ -139,18 +139,18 @@
 							if(sift4(firstname, address, 5, 10) < 4 && !suggested && sift4(firstname, address, 5, 10) != 0){
 								label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ firstname + "@" + domain +"</span>?");
 								label.attr('style', 'color:#000;');
-								label.click(function(){$('#email').val(firstname + "@" + domain);});
+								label.click(function(){$('#email').val(firstname + "@" + domain); this.innerHTML="";});
 							}
 							else if(sift4(initialname, address, 5, 10) < 4 && !suggested && sift4(initialname, address, 5, 10) != 0 && address.indexOf('.') > 0){
 								label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ initialname + "@" + domain +"</span>?");
 								label.attr('style', 'color:#000;');
-								label.click(function(){$('#email').val(initialname + "@" + domain);});
+								label.click(function(){$('#email').val(initialname + "@" + domain); this.innerHTML="";});
 								suggested = true;
 							}
 							else if(sift4(fullname, address, 5, 10) < 4 && !suggested && sift4(fullname, address, 5, 10) != 0){
 								label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ fullname + "@" + domain +"</span>?");
 								label.attr('style', 'color:#000;');
-								label.click(function(){$('#email').val(fullname + "@" + domain);});
+								label.click(function(){$('#email').val(fullname + "@" + domain); this.innerHTML="";});
 								suggested = true;
 							}
 						}
