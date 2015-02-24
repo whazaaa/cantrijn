@@ -97,7 +97,8 @@
 						else if (id == "email-error"){
 							$('#email').mailcheck({
 								suggested : function(element, suggestion) {
-									label.addClass("suggestion").html('Bedoelde u misschien ' + suggestion.full +"?");
+									label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">' + suggestion.full +"</span>?");
+									label.attr('style', 'color:#000;');
 									label.click(function(){$('#email').val(suggestion.full);});
 								},
 								empty : function(element) {

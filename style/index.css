@@ -114,6 +114,15 @@ input{
 	text-transform: uppercase;
 }
 
+#suggestion{
+	color:#2A62BC;
+	text-decoration: underline;
+	font-style: normal;
+	background-color:#FFFFFF;
+	cursor: pointer; 
+	cursor: hand;
+}
+
 .error{
 	color: #F00;
 }
