@@ -108,13 +108,14 @@
 							$('#email').mailcheck({
 								suggested : function(element, suggestion) {
 									address = suggestion.address;
-									if(sift3B(firstname, suggestion.address, 5, 4) < 5){
+									if(sift3B(firstname, suggestion.address, 5, 10) < 5){
 										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ firstname + "@" + suggestion.domain +"</span>?");
 										suggested = true;
+										alert(sift3B(firstname, suggestion.address, 5, 10));
 									}
 									else{
 										label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ suggestion.full +"</span>?");
-										alert(sift3B(firstname, suggestion.address, 5, 3));
+										alert(sift3B(firstname, suggestion.address, 5, 10));
 									}
 									label.attr('style', 'color:#000;');
 									label.click(function(){$('#email').val(suggestion.full);});
@@ -122,7 +123,7 @@
 								empty : function(element) {
 								}
 							});
-							if(sift3B(firstname, address, 5, 4) < 5 && !suggested){
+							if(sift3B(firstname, address, 5, 10) < 5 && !suggested){
 								label.addClass("suggestion").html('Bedoelde u misschien <span id="suggestion" title="Klik hier voor correctie">'+ firstname + "@" + domain +"</span>?");
 								label.attr('style', 'color:#000;');
 								label.click(function(){$('#email').val(firstname + "@" + domain);});
