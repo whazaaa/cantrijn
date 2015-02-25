@@ -2,7 +2,8 @@
 
 	$Brq_signature = sha1("Brq_amount=10.00Brq_culture=nl-NLBrq_currency=EURBrq_invoicenumber=002Brq_websitekey=K63U66RHdSDCE476532C2345F1BEF8E6A9DCC351AE");
 	
-	$variabele1 = $_POST['brq_statuscode'];
+	$status = $_POST['brq_statuscode'];
+	$message = $_POST['brq_statusmessage'];
 	
 ?>
 
@@ -46,12 +47,12 @@
 			<div class="content">
 				<article class="topcontent">
 					<header>
-						<h2><a href="#" title="First post"><?php echo $variabele1; ?></a></h2>
+						<h2><a href="#" title="First post"><?php echo $status; ?></a></h2>
 					</header>
 
 					<footer>
 						<p class="post-info">
-							Een test formulier
+							<?php echo $message; ?>
 						</p>
 					</footer>
 
@@ -89,7 +90,13 @@
 								</p>
 							</fieldset>
 						</form>
-
+						<p id="postdata">
+						<?php
+							foreach ($_POST as $param_name => $param_val) {
+    							echo "$param_name=$param_val<br />\n";
+							}
+						?>
+						</p>
 					</content>
 
 				</article>

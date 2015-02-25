@@ -127,6 +127,10 @@ input{
 	cursor: hand;
 }
 
+#postdata{
+	overflow-x:hidden;
+}
+
 .error{
 	color: #F00;
 }
