@@ -1,14 +1,24 @@
 <?php
 
-	$signature3 = sha1("brq_amount=10.00brq_currency=EURbrq_invoicenumber=001brq_websitekey=K63U66RHdS" + "DCE476532C2345F1BEF8E6A9DCC351AE");
+	$Brq_signature = sha1("Brq_amount=10.00Brq_culture=nl-NLBrq_currency=EURBrq_invoicenumber=001Brq_websitekey=K63U66RHdSDCE476532C2345F1BEF8E6A9DCC351AE");
+	
+	$url = 'https://testcheckout.buckaroo.nl/html/';
+	$myvars = "Brq_amount=10.00&Brq_currency=EUR&Brq_invoicenumber=001&Brq_websitekey=K63U66RHdS&Brq_signature=" + $Brq_signature;
 
-	$Brq_signature = $signature3;
+	/*$ch = curl_init( $url );
+	curl_setopt( $ch, CURLOPT_POST, 1);
+	curl_setopt( $ch, CURLOPT_POSTFIELDS, $myvars);
+	curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+	curl_setopt( $ch, CURLOPT_HEADER, 0);
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+
+	$response = curl_exec( $ch );*/
 ?>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Forms</title>
+		<title>Buckaroo</title>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="description" content="">
@@ -59,24 +69,28 @@
 						<form id="signupForm" method="post" action="https://testcheckout.buckaroo.nl/html/">
 							<fieldset>
 								<p class="fields">
-									<label class="title" for="ammount">Bedrag</label>
-									<input id="ammount" name="ammount" type="text" value="10.00"/>
+									<label class="title" for="Brq_amount">Bedrag</label>
+									<input id="Brq_amount" name="Brq_amount" type="text" value="10.00"/>
 								</p>
 								<p class="fields">
-									<label class="title" for="currency">Valuta</label>
-									<input id="currency" name="currency" type="text" value="EUR"/>
+									<label class="title" for="Brq_culture">Regio</label>
+									<input id="Brq_culture" name="Brq_culture" type="text" value="nl-NL"/>
 								</p>
 								<p class="fields">
-									<label class="title" for="invoice">Invoice</label>
-									<input id="invoice" name="invoice" type="text" value="001"/>
+									<label class="title" for="Brq_currency">Valuta</label>
+									<input id="Brq_currency" name="Brq_currency" type="text" value="EUR"/>
 								</p>
 								<p class="fields">
-									<label class="title" for="websitekey">Website key</label>
-									<input id="websitekey" name="websitekey" type="text" value="K63U66RHdS"/>
+									<label class="title" for="Brq_invoicenumber">Invoice</label>
+									<input id="Brq_invoicenumber" name="Brq_invoicenumber" type="text" value="001"/>
 								</p>
 								<p class="fields">
-									<label class="title" for="signature">Signature</label>
-									<input id="signature" name="signature" type="text" value="DCE476532C2345F1BEF8E6A9DCC351AE"/>
+									<label class="title" for="Brq_websitekey">Website key</label>
+									<input id="Brq_websitekey" name="Brq_websitekey" type="text" value="K63U66RHdS"/>
+								</p>
+								<p class="fields">
+									<label class="title" for="Brq_signature">Signature</label>
+									<input id="Brq_signature" name="Brq_signature" type="text" value="<?php echo $Brq_signature;?>"/>
 								</p>
 								<p class="fields">
 									<input type="submit" value="Submit"/>
