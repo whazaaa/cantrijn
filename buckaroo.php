@@ -1,18 +1,9 @@
 <?php
 
-	$Brq_signature = sha1("Brq_amount=10.00Brq_culture=nl-NLBrq_currency=EURBrq_invoicenumber=001Brq_websitekey=K63U66RHdSDCE476532C2345F1BEF8E6A9DCC351AE");
+	$Brq_signature = sha1("Brq_amount=10.00Brq_culture=nl-NLBrq_currency=EURBrq_invoicenumber=002Brq_websitekey=K63U66RHdSDCE476532C2345F1BEF8E6A9DCC351AE");
 	
-	$url = 'https://testcheckout.buckaroo.nl/html/';
-	$myvars = "Brq_amount=10.00&Brq_currency=EUR&Brq_invoicenumber=001&Brq_websitekey=K63U66RHdS&Brq_signature=" + $Brq_signature;
-
-	/*$ch = curl_init( $url );
-	curl_setopt( $ch, CURLOPT_POST, 1);
-	curl_setopt( $ch, CURLOPT_POSTFIELDS, $myvars);
-	curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
-	curl_setopt( $ch, CURLOPT_HEADER, 0);
-	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
-
-	$response = curl_exec( $ch );*/
+	$variabele1 = $_POST['brq_statuscode'];
+	
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +46,7 @@
 			<div class="content">
 				<article class="topcontent">
 					<header>
-						<h2><a href="#" title="First post">Buckaroo</a></h2>
+						<h2><a href="#" title="First post"><?php echo $variabele1; ?></a></h2>
 					</header>
 
 					<footer>
@@ -82,7 +73,7 @@
 								</p>
 								<p class="fields">
 									<label class="title" for="Brq_invoicenumber">Invoice</label>
-									<input id="Brq_invoicenumber" name="Brq_invoicenumber" type="text" value="001"/>
+									<input id="Brq_invoicenumber" name="Brq_invoicenumber" type="text" value="002"/>
 								</p>
 								<p class="fields">
 									<label class="title" for="Brq_websitekey">Website key</label>
