@@ -4,8 +4,7 @@
 	$message = $_POST['brq_statusmessage'];
 	$email_address = "buckaroo@cmember.nl";
 	$email_subject = $_POST['brq_statuscode']." ".$_POST['brq_statusmessage'];
-	$email_message = "test"; 
-	$email_from = "buckaroo@cmember.nl";
+	$email_from = $_POST['ADD_email'];
 	
 	if($_POST) {
 		
@@ -41,7 +40,8 @@
 			var invoice = $('#Brq_invoicenumber').val();
 			var websiteKey = "K63U66RHdS"
 			var secretKey = "DCE476532C2345F1BEF8E6A9DCC351AE";
-			var vallues = "Brq_amount="+ammount+"Brq_culture="+culture+"Brq_currency="+currency+"Brq_invoicenumber="+invoice+"Brq_websitekey="+websiteKey+secretKey;
+			var email = $('#add_email').val();
+			var vallues = "add_email="+email+"Brq_amount="+ammount+"Brq_culture="+culture+"Brq_currency="+currency+"Brq_invoicenumber="+invoice+"Brq_websitekey="+websiteKey+secretKey;
 
 			var signature = $().crypt({method:"sha1",source:vallues});
 			$('#Brq_signature').val(signature);
@@ -99,6 +99,10 @@
 								<p class="fields">
 									<label class="title" for="Brq_invoicenumber">Invoice</label>
 									<input id="Brq_invoicenumber" name="Brq_invoicenumber" type="text" value="001"/>
+								</p>
+								<p class="fields">
+									<label class="title" for="add_email">Email</label>
+									<input id="add_email" name="add_email" type="email" value="<?php echo $email_from; ?>" required/>
 								</p>
 								
 									<input id="Brq_websitekey" name="Brq_websitekey" type="hidden" value="K63U66RHdS"/>
