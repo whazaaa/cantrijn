@@ -2,8 +2,22 @@
 
 	$Brq_signature = sha1("Brq_amount=10.00Brq_culture=nl-NLBrq_currency=EURBrq_invoicenumber=002Brq_websitekey=K63U66RHdSDCE476532C2345F1BEF8E6A9DCC351AE");
 	
+	
+	
 	$status = $_POST['brq_statuscode'];
 	$message = $_POST['brq_statusmessage'];
+	$email_address = "buckaroo@cmember.nl";
+	$email_subject = $_POST['brq_statuscode']." ".$_POST['brq_statusmessage'];
+	$email_message = "test"; 
+	$email_from = "buckaroo@cmember.nl";
+	
+	if($_POST) {
+		
+		foreach ($_POST as $param_name => $param_val) {
+    		$email_message .= "$param_name=$param_val\n";
+		};
+		mail($email_address,$email_subject,$email_message,"From:".$email_from);
+	}
 	
 ?>
 
