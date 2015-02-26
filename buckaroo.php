@@ -1,8 +1,4 @@
 <?php
-
-	$Brq_signature = sha1("Brq_amount=10.00Brq_culture=nl-NLBrq_currency=EURBrq_invoicenumber=002Brq_websitekey=K63U66RHdSDCE476532C2345F1BEF8E6A9DCC351AE");
-	
-	
 	
 	$status = $_POST['brq_statuscode'];
 	$message = $_POST['brq_statusmessage'];
@@ -32,8 +28,29 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="stylesheet" href="style/index.css" type="text/css"/>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="js/jquery.crypt.js"></script>
 
 	</head>
+	<script type="text/javascript">
+		
+		function checkSignature(){
+			var ammount = $('#Brq_amount').val();
+			var culture = $('#Brq_culture').val();
+			var currency = $('#Brq_currency').val();
+			var invoice = $('#Brq_invoicenumber').val();
+			var websiteKey = "K63U66RHdS";
+			var secretKey = "DCE476532C2345F1BEF8E6A9DCC351AE";
+			var vallues = "Brq_amount="+ammount+"Brq_culture="+culture+"Brq_currency="+currency+"Brq_invoicenumber="+invoice+"Brq_websitekey="+websiteKey+secretKey;
+
+			var signature = $().crypt({method:"sha1",source:vallues})
+			$('#Brq_websitekey').val(websiteKey)
+			$('#Brq_signature').val(signature);
+
+			return true;
+		}
+		
+	</script>
 	<body class="body">
 
 		<header class="mainHeader">
@@ -72,7 +89,7 @@
 
 					<content>
 
-						<form id="signupForm" method="post" action="https://testcheckout.buckaroo.nl/html/">
+						<form id="signupForm" method="post" action="https://testcheckout.buckaroo.nl/html/" onSubmit="return checkSignature();">
 							<fieldset>
 								<p class="fields">
 									<label class="title" for="Brq_amount">Bedrag</label>
@@ -88,15 +105,15 @@
 								</p>
 								<p class="fields">
 									<label class="title" for="Brq_invoicenumber">Invoice</label>
-									<input id="Brq_invoicenumber" name="Brq_invoicenumber" type="text" value="002"/>
+									<input id="Brq_invoicenumber" name="Brq_invoicenumber" type="text" value="001"/>
 								</p>
 								<p class="fields">
 									<label class="title" for="Brq_websitekey">Website key</label>
-									<input id="Brq_websitekey" name="Brq_websitekey" type="text" value="K63U66RHdS"/>
+									<input id="Brq_websitekey" name="Brq_websitekey" type="text"/>
 								</p>
 								<p class="fields">
 									<label class="title" for="Brq_signature">Signature</label>
-									<input id="Brq_signature" name="Brq_signature" type="text" value="<?php echo $Brq_signature;?>"/>
+									<input id="Brq_signature" name="Brq_signature" type="text"/>
 								</p>
 								<p class="fields">
 									<input type="submit" value="Submit"/>
