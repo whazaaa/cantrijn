@@ -36,17 +36,18 @@
 		
 		function checkSignature(){
 			var ammount = $('#Brq_amount').val();
-			var culture = $('#Brq_culture').val();
-			var currency = $('#Brq_currency').val();
+			var culture = "nl-NL";
+			var currency = "EUR";
 			var invoice = $('#Brq_invoicenumber').val();
-			var websiteKey = "K63U66RHdS";
+			var websiteKey = "K63U66RHdS"
 			var secretKey = "DCE476532C2345F1BEF8E6A9DCC351AE";
 			var vallues = "Brq_amount="+ammount+"Brq_culture="+culture+"Brq_currency="+currency+"Brq_invoicenumber="+invoice+"Brq_websitekey="+websiteKey+secretKey;
 
-			var signature = $().crypt({method:"sha1",source:vallues})
-			$('#Brq_websitekey').val(websiteKey)
+			var signature = $().crypt({method:"sha1",source:vallues});
 			$('#Brq_signature').val(signature);
-
+			$('#Brq_culture').val(culture);
+			$('#Brq_currency').val(currency);
+			
 			return true;
 		}
 		
@@ -96,27 +97,17 @@
 									<input id="Brq_amount" name="Brq_amount" type="text" value="10.00"/>
 								</p>
 								<p class="fields">
-									<label class="title" for="Brq_culture">Regio</label>
-									<input id="Brq_culture" name="Brq_culture" type="text" value="nl-NL"/>
-								</p>
-								<p class="fields">
-									<label class="title" for="Brq_currency">Valuta</label>
-									<input id="Brq_currency" name="Brq_currency" type="text" value="EUR"/>
-								</p>
-								<p class="fields">
 									<label class="title" for="Brq_invoicenumber">Invoice</label>
 									<input id="Brq_invoicenumber" name="Brq_invoicenumber" type="text" value="001"/>
 								</p>
+								
+									<input id="Brq_websitekey" name="Brq_websitekey" type="hidden" value="K63U66RHdS"/>
+									<input id="Brq_culture" name="Brq_culture" type="hidden"/>
+									<input id="Brq_currency" name="Brq_currency" type="hidden"/>
+									<input id="Brq_signature" name="Brq_signature" type="hidden"/>
+									
 								<p class="fields">
-									<label class="title" for="Brq_websitekey">Website key</label>
-									<input id="Brq_websitekey" name="Brq_websitekey" type="text"/>
-								</p>
-								<p class="fields">
-									<label class="title" for="Brq_signature">Signature</label>
-									<input id="Brq_signature" name="Brq_signature" type="text"/>
-								</p>
-								<p class="fields">
-									<input type="submit" value="Submit"/>
+									<input type="submit" value="Betaal"/>
 									<input type="reset" value="Reset" class="reset"/>
 								</p>
 							</fieldset>
