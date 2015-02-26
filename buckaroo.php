@@ -6,7 +6,7 @@
 	$email_subject = $_POST['brq_statuscode']." ".$_POST['brq_statusmessage'];
 	$email_from = $_POST['ADD_email'];
 	
-	if($_POST) {
+	if($_POST && $email_from != "" && $_POST['brq_transaction_type'] != "") {
 		
 		foreach ($_POST as $param_name => $param_val) {
     		$email_message .= "$param_name=$param_val\n";
