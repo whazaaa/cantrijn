@@ -15,11 +15,7 @@
 	}
 	
 
-	//Test commit 5
-	
-
-	//Test commit 3
-	// Test Josja
+	//Test commit 6
 
 ?>
 
