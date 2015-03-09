@@ -74,6 +74,7 @@
 					<li class="active">
 						<a href="buckaroo.php">Buckaroo</a>
 					</li>
+					<li><a href="vereniging.html">Vereniging</a></li>
 				</ul>
 			</nav>
 		</header>
