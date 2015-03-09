@@ -11,49 +11,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="stylesheet" href="style/index.css" type="text/css"/>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-
-		<script>
-			xhr = new XMLHttpRequest();
-			var postcode = '4205AA';
-			var housenumber = '29';
-			var titlename = 'Cantrijn';
-			var description = '%26nbsp%3B';
-
-			$(document).ready(function() {
-				$.ajax({
-					url : 'http://api.postcodeapi.nu/' + postcode + '/' + housenumber,
-					type : 'GET',
-					datatype : 'json',
-					success : function(address) {
-						$('#map').attr('data', 'http://kaart.pdok.nl/api/api.html?zoom=8&baselayer=BRT&showlayerswitcher=false&loc='
-						+ address.resource.x +
-						'%2C%20'
-						+address.resource.y+
-						'&pdoklayers=BRT%2CBRTTIJDELIJK%2CBRTGRIJSTIJDELIJK%2CLUFO&markersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-markers.js&layersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-layers.js&mloc='
-						+address.resource.x+
-						'%2C'
-						+address.resource.y+
-						'&titel='
-						+titlename+
-						'&tekst='
-						+description+
-						'&mt=mt8');
-					},
-					error : function() {
-						alert('error');
-					},
-					beforeSend : setHeader
-				});
-			});
-
-			function setHeader(xhr) {
-				xhr.setRequestHeader('Accept', '/*/');
-				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-');
-				xhr.setRequestHeader('Accept-Language', 'en');
-				xhr.setRequestHeader('Api-Key', '0695ec04e26c4016e5bdbf8b748ac716f7bc88cc');
-			}
-		</script>
 
 	</head>
 
@@ -211,8 +168,6 @@
 						<div id="status">
 
 						</div>
-
-						<object id="map" width="550" height="440" codetype="text/html" data="http://kaart.pdok.nl/api/api.html?zoom=8&baselayer=BRT&showlayerswitcher=false&loc=126369.2%2C%20427498.2&pdoklayers=BRT%2CBRTTIJDELIJK%2CBRTGRIJSTIJDELIJK%2CLUFO&markersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-markers.js&layersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-layers.js&mloc=126372.35%2C427501.888125&titel=Cantrijn&tekst=%26nbsp%3B&mt=mt8" title="PDOK Kaart"></object>
 
 					</content>
 				</article>

@@ -167,10 +167,15 @@ h3{
 }
 
 #associationlogo{
-    width:130px;
-    height:100px;
+    width:150px;
+    height:120px;
     margin-left: 3%;
     margin-top: -20%;
+}
+
+#myChart{
+    float:right;
+    margin-top:-250px;
 }
 
 .error{
@@ -326,6 +331,11 @@ h3{
 	float:left;
 	margin-top: 2%;
 	}
+	
+	#myChart{
+    float:none;
+    margin-top:50px;
+    }
 	
 	.error{
 		display:block;
