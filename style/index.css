@@ -32,6 +32,16 @@ input{
 	float:left;
 }
 
+h3{
+    background-color:#CF5C3F;
+    margin:0 auto;
+    width: 50%;
+    text-align:center;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
 .body {
 	margin: 0 auto;
 	width: 70%;
@@ -131,6 +141,19 @@ input{
 	overflow-x:hidden;
 }
 
+#map{
+    width: 100%;
+    height: 250px;
+    float:left;
+}
+
+#associationlogo{
+    width:130px;
+    height:100px;
+    margin-left: 3%;
+    margin-top: -20%;
+}
+
 .error{
 	color: #F00;
 }
@@ -159,6 +182,15 @@ input{
 	-webkit-border-radius: 5px;
 	padding: 3% 5%;
 	margin-top: 3%;
+}
+
+.map{
+    background-color: #FFF;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding:0;
+    margin-top:3%;
 }
 
 .middlecontent{
