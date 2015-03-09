@@ -8,7 +8,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="description" content="">
 		<meta name="author" content="Stagiair">
-		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
 		<link rel="stylesheet" href="style/index.css" type="text/css"/>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -17,10 +17,11 @@
 			xhr = new XMLHttpRequest();
 			var postcode = '4205AA';
 			var housenumber = '29';
-			var titlename = 'Cantrijn';
+			var titlename = 'Cantrijn webdiensten';
 			var description = '%26nbsp%3B';
 
 			$(document).ready(function() {
+				$('#associationtitle').html(titlename);
 				$.ajax({
 					url : 'http://api.postcodeapi.nu/' + postcode + '/' + housenumber,
 					type : 'GET',
@@ -72,13 +73,46 @@
 		
 		<div class="mainContent">
 			<div class="content">
-				<article class="map">
+				<div class="maps">
 					
 					<object id="map" codetype="text/html" data="http://kaart.pdok.nl/api/api.html?zoom=8&baselayer=BRT&showlayerswitcher=false&loc=126369.2%2C%20427498.2&pdoklayers=BRT%2CBRTTIJDELIJK%2CBRTGRIJSTIJDELIJK%2CLUFO&markersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-markers.js&layersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-layers.js&mloc=126372.35%2C427501.888125&titel=Cantrijn&tekst=%26nbsp%3B&mt=mt8" title="PDOK Kaart"></object>
 					<img src="img/starwars.jpg" alt="logo" id="associationlogo" />
-					<h3>Cantrijn Webdiensten</h3>
+					<h3 id="associationtitle" class="blue"></h3>
 					
-				</article>
+					<p class="associationfield">
+						<label class="associationtitle">Vereniging: </label>
+						<label id="associationname">Cantrijn webdiensten</label>
+					</p>
+					<p class="associationfield">
+						<label class="associationtitle">Type: </label>
+						<label id="associationtype">Commercieel</label>
+					</p>
+					<p class="associationfield">
+						<label class="associationtitle">Branche: </label>
+						<label id="associationservice">ICT</label>
+					</p>
+					<p class="associationfield">
+						<label class="associationtitle">Adres: </label>
+						<label id="associationaddress">Stationsweg 29</label>
+					</p>
+					<p class="associationfield">
+						<label class="associationtitle">Postcode: </label>
+						<label id="associationpostalcode">4205AA</label>
+					</p>
+					<p class="associationfield">
+						<label class="associationtitle">Plaats: </label>
+						<label id="associationcity">Gorinchem</label>
+					</p>
+					<p class="associationfield">
+						<label class="associationtitle">Land: </label>
+						<label id="associationcountry">Nederland</label>
+					</p>
+					<p class="associationfield">
+						<label class="associationtitle">In systeem sinds: </label>
+						<label id="associationdate">01/01/2010</label>
+					</p>
+					
+				</div>
 			</div>
 		</div>
 		
