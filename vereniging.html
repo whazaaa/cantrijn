@@ -12,15 +12,41 @@
 		
 		<link rel="stylesheet" href="style/index.css" type="text/css"/>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="js/Chart.js"></script>
 
 		<script>
 			xhr = new XMLHttpRequest();
+			
 			var postcode = '4205AA';
 			var housenumber = '29';
 			var titlename = 'Cantrijn webdiensten';
 			var description = '%26nbsp%3B';
 
 			$(document).ready(function() {
+				
+				var ctx = document.getElementById("myChart").getContext("2d");
+				var data = [
+    			{
+        			value: 300,
+        			color:"#46BFBD",
+        			highlight: "#5AD3D1",
+        			label: "Actief"
+    			},
+    			{
+        			value: 50,
+        			color: "#FDB45C",
+        			highlight: "#FFC870",
+        			label: "Bestuur"
+    			},
+    			{
+       				value: 100,
+        			color: "#F7464A",
+        			highlight: "#FF5A5E",
+        			label: "Non-actief"
+   				}
+				];
+			var myNewChart = new Chart(ctx).Doughnut(data,{animateScale : false});
+				
 				$('#associationtitle').html(titlename);
 				$.ajax({
 					url : 'http://api.postcodeapi.nu/' + postcode + '/' + housenumber,
@@ -111,6 +137,8 @@
 						<label class="associationtitle">In systeem sinds: </label>
 						<label id="associationdate">01/01/2010</label>
 					</p>
+					
+					<canvas id="myChart" width="200" height="200"></canvas>
 					
 				</div>
 			</div>
