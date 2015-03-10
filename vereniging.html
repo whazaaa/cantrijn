@@ -10,9 +10,18 @@
 		<meta name="author" content="Stagiair">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<link rel="stylesheet" href="style/index.css" type="text/css"/>
+		<script src="http://kaart.pdok.nl/api/js/OpenLayers.js"></script>
+		<script src="http://kaart.pdok.nl/api/js/proj4js-compressed.js"></script>
+		<script src="http://kaart.pdok.nl/api/js/pdok-api.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="js/Chart.js"></script>
+		
+		
+		
+		<link rel="stylesheet" href="http://kaart.pdok.nl/api/styles/default/style.css" type="text/css">
+		<link rel="stylesheet" href="http://kaart.pdok.nl/api/styles/api.css" type="text/css">
+		
+		<link rel="stylesheet" href="style/index.css" type="text/css"/>
 
 		<script>
 			xhr = new XMLHttpRequest();
@@ -20,8 +29,14 @@
 			var postcode = '4205AA';
 			var housenumber = '29';
 			var titlename = 'Cantrijn webdiensten';
-			var description = '%26nbsp%3B';
-
+			var description = '&amp;nbsp;';
+			var y = 51.84137431628884;
+			var x = 4.69380659622931;
+			var placemarkers;
+			var coordinates = x +','+ y;
+			var placemarker = '<Placemark><name>'+titlename+'</name><description>'+description+'</description><Point><coordinates>'+coordinates+'</coordinates></Point><ExtendedData><Data name="styletype"><value>mt8</value></Data></ExtendedData></Placemark>';
+			var config;
+			
 			$(document).ready(function() {
 				
 				var ctx = document.getElementById("myChart").getContext("2d");
@@ -53,19 +68,29 @@
 					type : 'GET',
 					datatype : 'json',
 					success : function(address) {
-						$('#map').attr('data', 'http://kaart.pdok.nl/api/api.html?zoom=8&baselayer=BRT&showlayerswitcher=false&loc='
-						+ address.resource.x +
-						'%2C%20'
-						+address.resource.y+
-						'&pdoklayers=BRT%2CBRTTIJDELIJK%2CBRTGRIJSTIJDELIJK%2CLUFO&markersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-markers.js&layersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-layers.js&mloc='
-						+address.resource.x+
-						'%2C'
-						+address.resource.y+
-						'&titel='
-						+titlename+
-						'&tekst='
-						+description+
-						'&mt=mt8');
+						x = address.resource.longitude;
+						y = address.resource.latitude;
+						
+						for (var i=0; i < 2000; i++) {
+							y = y + 0.001;
+							coordinates = x +',' + y;
+							placemarker = '<Placemark><name>'+titlename+'</name><description>'+description+'</description><Point><coordinates>'+coordinates+'</coordinates></Point><ExtendedData><Data name="styletype"><value>mt8</value></Data></ExtendedData></Placemark>';
+							placemarkers = placemarkers + placemarker;
+						};
+						
+						config = {
+							"zoom" : 8,
+							"baselayer" : 'BRT',
+							"showlayerswitcher" : true,
+							"loc" : address.resource.x+','+address.resource.y,
+							"pdoklayers" : 'BRT,BRTTIJDELIJK,BRTGRIJSTIJDELIJK,LUFO',
+							"wmsurl" : 'http://maps.nrc.nl/cgi-bin/mapserv?map=/var/www/fgs/chameleon/map/CBS.map',
+							"wmslayers" : 'FISCAAL',
+							"markersdef" : 'http://kaart.pdok.nl/api/js/pdok-markers.js',
+							"layersdef" : 'http://kaart.pdok.nl/api/js/pdok-layers.js',
+							"features" : '<kml xmlns="http://earth.google.com/kml/2.0"><Folder>'+placemarkers+'</Folder></kml>'
+						};
+						var api = createPDOKKaart();
 					},
 					error : function() {
 						alert('error');
@@ -73,6 +98,11 @@
 					beforeSend : setHeader
 				});
 			});
+			
+			function createPDOKKaart() {
+				var api = new Pdok.Api(config);
+				return api;
+			}
 
 			function setHeader(xhr) {
 				xhr.setRequestHeader('Accept', '/*/');
@@ -101,7 +131,8 @@
 			<div class="content">
 				<div class="maps">
 					
-					<object id="map" codetype="text/html" data="http://kaart.pdok.nl/api/api.html?zoom=8&baselayer=BRT&showlayerswitcher=false&loc=126369.2%2C%20427498.2&pdoklayers=BRT%2CBRTTIJDELIJK%2CBRTGRIJSTIJDELIJK%2CLUFO&markersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-markers.js&layersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-layers.js&mloc=126372.35%2C427501.888125&titel=Cantrijn&tekst=%26nbsp%3B&mt=mt8" title="PDOK Kaart"></object>
+					<div id="map" ></div>
+					
 					<a href="#"><img src="img/starwars.jpg" alt="logo" id="associationlogo" /></a>
 					<a href="#"><h3 id="associationtitle" class="blue"></h3></a>
 					
