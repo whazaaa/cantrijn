@@ -102,8 +102,8 @@
 				<div class="maps">
 					
 					<object id="map" codetype="text/html" data="http://kaart.pdok.nl/api/api.html?zoom=8&baselayer=BRT&showlayerswitcher=false&loc=126369.2%2C%20427498.2&pdoklayers=BRT%2CBRTTIJDELIJK%2CBRTGRIJSTIJDELIJK%2CLUFO&markersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-markers.js&layersdef=http%3A%2F%2Fkaart.pdok.nl%2Fapi%2Fjs%2Fpdok-layers.js&mloc=126372.35%2C427501.888125&titel=Cantrijn&tekst=%26nbsp%3B&mt=mt8" title="PDOK Kaart"></object>
-					<img src="img/starwars.jpg" alt="logo" id="associationlogo" />
-					<h3 id="associationtitle" class="blue"></h3>
+					<a href="#"><img src="img/starwars.jpg" alt="logo" id="associationlogo" /></a>
+					<a href="#"><h3 id="associationtitle" class="blue"></h3></a>
 					
 					<p class="associationfield">
 						<label class="associationtitle">Vereniging: </label>
@@ -136,9 +136,24 @@
 					<p class="associationfield">
 						<label class="associationtitle">In systeem sinds: </label>
 						<label id="associationdate">01/01/2010</label>
+						<br />
 					</p>
 					
 					<canvas id="myChart" width="200" height="200"></canvas>
+					
+					<ul class="doughnut-legend">
+						<li>
+							<span style="background-color:#46BFBD"></span>Actief
+						</li>
+						<li>
+							<span style="background-color:#FDB45C"></span>Bestuur
+						</li>
+						<li>
+							<span style="background-color:#F7464A"></span>Non-actief
+						</li>
+					</ul>
+					
+					<p class="doughnut-title">Type leden</p>
 					
 				</div>
 			</div>

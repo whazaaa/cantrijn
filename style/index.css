@@ -15,11 +15,11 @@ a{
 	text-decoration:none;
 }
 
-a:link, a:visited {
+nav a:link, a:visited {
 	color:#CF5C3F;
 }
 
-a:hover, a:active {
+nav a:hover, a:active {
 	background-color:#CF5C3F;
 	color:#FFFFFF;
 }
@@ -171,13 +171,39 @@ h3{
     height:120px;
     margin-left: 3%;
     margin-top: -20%;
-    z-index: 20;
     position:relative;
 }
 
 #myChart{
     float:right;
     margin-top:-250px;
+    margin-right:100px;
+}
+
+.doughnut-legend span{
+    width:20px;
+    height:20px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    display:inline-block;
+    float:left;
+    margin-top:1px;
+    margin-right:2px;
+}
+
+.doughnut-legend{
+    list-style:none;
+    float:right;
+    margin-top:-250px;
+    margin-right:10px;
+}
+
+.doughnut-title{
+    float:right;
+    font-weight:bold;
+    margin-right:160px;
+    margin-top:-50px;
 }
 
 .error{
