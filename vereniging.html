@@ -32,7 +32,8 @@
 			var x = 4.69380659622931;
 			var placemarkers;
 			var coordinates = x +','+ y;
-			var placemarker = '<Placemark><name>'+titlename+'</name><description>'+description+'</description><Point><coordinates>'+coordinates+'</coordinates></Point><ExtendedData><Data name="styletype"><value>mt8</value></Data></ExtendedData></Placemark>';
+			var placemarkertype = 'mt8';//red flag
+			var placemarker = '<Placemark><name>'+titlename+'</name><description>'+description+'</description><Point><coordinates>'+coordinates+'</coordinates></Point><ExtendedData><Data name="styletype"><value>'+placemarkertype+'</value></Data></ExtendedData></Placemark>';
 			var wmslayer = 'FISCAAL';
 			var config;
 			
@@ -69,14 +70,18 @@
 					success : function(address) {
 						x = address.resource.longitude;
 						y = address.resource.latitude;
+						coordinates = x +',' + y;
+						placemarkertype = 'mt6';//association placemarker
+						placemarkers = '<Placemark><name>'+titlename+'</name><description>'+description+'</description><Point><coordinates>'+coordinates+'</coordinates></Point><ExtendedData><Data name="styletype"><value>'+placemarkertype+'</value></Data></ExtendedData></Placemark>';;
 						
 						for (var i=0; i < 2000; i++) {
 							y = y + (1/(Math.floor(Math.random() * (2000 - -2000 + 1)) + -2000));
 							x = x + (1/(Math.floor(Math.random() * (2000 - -2000 + 1)) + -2000));
 							coordinates = x +',' + y;
 							description = coordinates;
-							placemarker = '<Placemark><name>'+titlename+'</name><description>'+description+'</description><Point><coordinates>'+coordinates+'</coordinates></Point><ExtendedData><Data name="styletype"><value>mt8</value></Data></ExtendedData></Placemark>';
-							placemarkers = placemarkers + placemarker;
+							placemarkertype = 'mt8';
+							placemarker = '<Placemark><name>'+titlename+'</name><description>'+description+'</description><Point><coordinates>'+coordinates+'</coordinates></Point><ExtendedData><Data name="styletype"><value>'+placemarkertype+'</value></Data></ExtendedData></Placemark>';
+							placemarkers = placemarker + placemarkers ;
 						};
 						
 						config = {
