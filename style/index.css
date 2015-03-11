@@ -168,6 +168,10 @@ h3{
     position:absolute;
 }
 
+.olLayerGridSingleTile img{
+    opacity: 0.5 !important;
+}
+
 #associationlogo{
     width:150px;
     height:120px;

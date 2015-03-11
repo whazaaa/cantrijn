@@ -16,8 +16,6 @@
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="js/Chart.js"></script>
 		
-		
-		
 		<link rel="stylesheet" href="http://kaart.pdok.nl/api/styles/default/style.css" type="text/css">
 		<link rel="stylesheet" href="http://kaart.pdok.nl/api/styles/api.css" type="text/css">
 		
@@ -35,6 +33,7 @@
 			var placemarkers;
 			var coordinates = x +','+ y;
 			var placemarker = '<Placemark><name>'+titlename+'</name><description>'+description+'</description><Point><coordinates>'+coordinates+'</coordinates></Point><ExtendedData><Data name="styletype"><value>mt8</value></Data></ExtendedData></Placemark>';
+			var wmslayer = 'FISCAAL';
 			var config;
 			
 			$(document).ready(function() {
@@ -85,7 +84,7 @@
 							"loc" : address.resource.x+','+address.resource.y,
 							"pdoklayers" : 'BRT,BRTTIJDELIJK,BRTGRIJSTIJDELIJK,LUFO',
 							"wmsurl" : 'http://maps.nrc.nl/cgi-bin/mapserv?map=/var/www/fgs/chameleon/map/CBS.map',
-							"wmslayers" : 'FISCAAL',
+							"wmslayers" : wmslayer,
 							"markersdef" : 'http://kaart.pdok.nl/api/js/pdok-markers.js',
 							"layersdef" : 'http://kaart.pdok.nl/api/js/pdok-layers.js',
 							"features" : '<kml xmlns="http://earth.google.com/kml/2.0"><Folder>'+placemarkers+'</Folder></kml>'
@@ -100,6 +99,7 @@
 			});
 			
 			function createPDOKKaart() {
+				$('#map').html('');
 				var api = new Pdok.Api(config);
 				return api;
 			}
