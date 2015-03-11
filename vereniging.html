@@ -74,6 +74,7 @@
 							y = y + (1/(Math.floor(Math.random() * (2000 - -2000 + 1)) + -2000));
 							x = x + (1/(Math.floor(Math.random() * (2000 - -2000 + 1)) + -2000));
 							coordinates = x +',' + y;
+							description = coordinates;
 							placemarker = '<Placemark><name>'+titlename+'</name><description>'+description+'</description><Point><coordinates>'+coordinates+'</coordinates></Point><ExtendedData><Data name="styletype"><value>mt8</value></Data></ExtendedData></Placemark>';
 							placemarkers = placemarkers + placemarker;
 						};
