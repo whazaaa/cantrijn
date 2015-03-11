@@ -71,7 +71,8 @@
 						y = address.resource.latitude;
 						
 						for (var i=0; i < 2000; i++) {
-							y = y + 0.001;
+							y = y + (1/(Math.floor(Math.random() * (2000 - -2000 + 1)) + -2000));
+							x = x + (1/(Math.floor(Math.random() * (2000 - -2000 + 1)) + -2000));
 							coordinates = x +',' + y;
 							placemarker = '<Placemark><name>'+titlename+'</name><description>'+description+'</description><Point><coordinates>'+coordinates+'</coordinates></Point><ExtendedData><Data name="styletype"><value>mt8</value></Data></ExtendedData></Placemark>';
 							placemarkers = placemarkers + placemarker;
