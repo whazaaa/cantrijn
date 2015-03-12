@@ -103,6 +103,11 @@
 					},
 					beforeSend : setHeader
 				});
+				$('#map').click(function() {
+					$('#featurePopup_contentDiv').click(function() {
+						alert($('#featurePopup_contentDiv').html());
+					});
+				});
 			});
 			
 			function createPDOKKaart() {
