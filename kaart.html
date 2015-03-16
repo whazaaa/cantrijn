@@ -58,7 +58,8 @@
             		}
             		bbox= lUL_Longitude + "," + lUL_Latitude + "," + lLR_Longitude + "," + lLR_Latitude;
 					
-					div.innerHTML = '<img src="http://maps.nrc.nl/cgi-bin/mapserv?map=/var/www/fgs/chameleon/map/CBS.map&amp;LAYERS=FISCAAL&amp;TRANSPARENT=TRUE&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;STYLES=&amp;FORMAT=image%2Fpng&amp;SRS=EPSG%3A900913&amp;BBOX='+bbox+'&amp;WIDTH=256&amp;HEIGHT=256" style="width: 256px; height: 256px; position: relative; opacity: 0.6;">';
+					//div.innerHTML = '<img src="http://maps.nrc.nl/cgi-bin/mapserv?map=/var/www/fgs/chameleon/map/CBS.map&amp;LAYERS=FISCAAL&amp;TRANSPARENT=TRUE&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;STYLES=&amp;FORMAT=image%2Fpng&amp;SRS=EPSG%3A900913&amp;BBOX='+bbox+'&amp;WIDTH=256&amp;HEIGHT=256" style="width: 256px; height: 256px; position: relative; opacity: 0.6;">';
+					div.innerHTML = '<img src="http://geodata.nationaalgeoregister.nl/fietsknooppuntennetwerk/wms?LAYERS=netwerken%2Cknooppunten&TRANSPARENT=true&FORMAT=image%2Fpng&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&SRS=EPSG%3A900913&amp;BBOX='+bbox+'&WIDTH=256&HEIGHT=256" style="width: 256px; height: 256px; position: relative; opacity: 0.6;">';
 					div.style.width = this.tileSize.width + 'px';
 					div.style.height = this.tileSize.height + 'px';
 					return div;
