@@ -61,25 +61,8 @@
 				
 				var getTile = function(coord, zoom, ownerDocument) {
 					var div = ownerDocument.createElement('div');
-					var bbox = '479406.21274558,6807170.2079419,484298.18255515,6812062.1777515';
-					
-					var lULP = new google.maps.Point(coord.x*256,(coord.y+1)*256);
-            		var lLRP = new google.maps.Point((coord.x+1)*256,coord.y*256);
-
-            		var projectionMap = new MercatorProjection();
-
-            		var lULg = projectionMap.fromDivPixelToSphericalMercator(lULP, zoom);
-            		var lLRg  = projectionMap.fromDivPixelToSphericalMercator(lLRP, zoom);
             		
-					var lUL_Latitude = lULg.y;
-           			var lUL_Longitude = lULg.x;
-            		var lLR_Latitude = lLRg.y;
-            		var lLR_Longitude = lLRg.x;
-            		//GJ: there is a bug when crossing the -180 longitude border (tile does not render) - this check seems to fix it
-            		if (lLR_Longitude < lUL_Longitude){
-              			lLR_Longitude = Math.abs(lLR_Longitude);
-            		}
-            		bbox= lUL_Longitude + "," + lUL_Latitude + "," + lLR_Longitude + "," + lLR_Latitude;
+            		var bbox = calculateBBOX(coord,zoom);
 					
 					//div.innerHTML = '<img src="http://maps.nrc.nl/cgi-bin/mapserv?map=/var/www/fgs/chameleon/map/CBS.map&amp;LAYERS=FISCAAL&amp;TRANSPARENT=TRUE&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;STYLES=&amp;FORMAT=image%2Fpng&amp;SRS=EPSG%3A900913&amp;BBOX='+bbox+'&amp;WIDTH=256&amp;HEIGHT=256" style="width: 256px; height: 256px; position: relative; opacity: 0.6;">';
 					div.innerHTML = '<img src="http://geodata.nationaalgeoregister.nl/fietsknooppuntennetwerk/wms?LAYERS=netwerken%2Cknooppunten&TRANSPARENT=true&FORMAT=image%2Fpng&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&SRS=EPSG%3A900913&amp;BBOX='+bbox+'&WIDTH=256&HEIGHT=256" style="width: 256px; height: 256px; position: relative; opacity: 0.6;">';
@@ -96,6 +79,29 @@
 				});
 
 			});
+			
+			function calculateBBOX(coordinates,zoomlvl){
+					var bbox = '479406.21274558,6807170.2079419,484298.18255515,6812062.1777515';
+					
+					var lULP = new google.maps.Point(coordinates.x*256,(coordinates.y+1)*256);
+            		var lLRP = new google.maps.Point((coordinates.x+1)*256,coordinates.y*256);
+
+            		var projectionMap = new MercatorProjection();
+
+            		var lULg = projectionMap.fromDivPixelToSphericalMercator(lULP, zoomlvl);
+            		var lLRg  = projectionMap.fromDivPixelToSphericalMercator(lLRP, zoomlvl);
+            		
+					var lUL_Latitude = lULg.y;
+           			var lUL_Longitude = lULg.x;
+            		var lLR_Latitude = lLRg.y;
+            		var lLR_Longitude = lLRg.x;
+            		//GJ: there is a bug when crossing the -180 longitude border (tile does not render) - this check seems to fix it
+            		if (lLR_Longitude < lUL_Longitude){
+              			lLR_Longitude = Math.abs(lLR_Longitude);
+            		}
+            		bbox= lUL_Longitude + "," + lUL_Latitude + "," + lLR_Longitude + "," + lLR_Latitude;
+            		return bbox;
+			}
 			
 			function bound(value, opt_min, opt_max) {
     			if (opt_min != null) value = Math.max(value, opt_min);
