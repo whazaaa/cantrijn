@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>HTML</title>
+		<meta name="description" content="">
+		<meta name="author" content="Stagiair">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript" src="gmaps.js"></script>
+		
+		<script>
+			var map;
+			var width = 500;
+			var height = 400;
+			$(document).ready(function() {
+				map = new GMaps({
+					el : '#map',
+					lat : 51.8353,
+					lng : 4.9718
+				});
+
+				map.addMarker({
+					lat : 51.8353,
+					lng : 4.9718,
+					title : 'Cantrijn',
+					infoWindow : {
+						content : '<p>Dit is cantrijn</p>'
+					}
+				});
+				
+				var getTile = function(coord, zoom, ownerDocument) {
+					var div = ownerDocument.createElement('div');
+					var bbox = '479406.21274558,6807170.2079419,484298.18255515,6812062.1777515'
+					
+					var lULP = new google.maps.Point(coord.x*256,(coord.y+1)*256);
+            		var lLRP = new google.maps.Point((coord.x+1)*256,coord.y*256);
+
+            		var projectionMap = new MercatorProjection();
+
+            		var lULg = projectionMap.fromDivPixelToSphericalMercator(lULP, zoom);
+            		var lLRg  = projectionMap.fromDivPixelToSphericalMercator(lLRP, zoom);
+            		
+					var lUL_Latitude = lULg.y;
+           			var lUL_Longitude = lULg.x;
+            		var lLR_Latitude = lLRg.y;
+            		var lLR_Longitude = lLRg.x;
+            		//GJ: there is a bug when crossing the -180 longitude border (tile does not render) - this check seems to fix it
+            		if (lLR_Longitude < lUL_Longitude){
+              			lLR_Longitude = Math.abs(lLR_Longitude);
+            		}
+            		bbox= lUL_Longitude + "," + lUL_Latitude + "," + lLR_Longitude + "," + lLR_Latitude
+					
+					div.innerHTML = '<img src="http://maps.nrc.nl/cgi-bin/mapserv?map=/var/www/fgs/chameleon/map/CBS.map&amp;LAYERS=FISCAAL&amp;TRANSPARENT=TRUE&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;STYLES=&amp;FORMAT=image%2Fpng&amp;SRS=EPSG%3A900913&amp;BBOX='+bbox+'&amp;WIDTH=256&amp;HEIGHT=256" style="width: 256px; height: 256px; position: relative; opacity: 0.6;">';
+					div.style.width = this.tileSize.width + 'px';
+					div.style.height = this.tileSize.height + 'px';
+					return div;
+				};
+
+				map.addOverlayMapType({
+					index : 0,
+					tileSize : new google.maps.Size(256, 256),
+					getTile : getTile
+				});
+
+			});
+			
+			function bound(value, opt_min, opt_max) {
+    			if (opt_min != null) value = Math.max(value, opt_min);
+    			if (opt_max != null) value = Math.min(value, opt_max);
+    			return value;
+			}
+			
+			function degreesToRadians(deg) {
+    			return deg * (Math.PI / 180);
+			}
+
+			function radiansToDegrees(rad) {
+    			return rad / (Math.PI / 180);
+			}
+			
+			function MercatorProjection() {
+    			var MERCATOR_RANGE = 256;
+    			this.pixelOrigin_ = new google.maps.Point(
+        		MERCATOR_RANGE / 2, MERCATOR_RANGE / 2);
+    			this.pixelsPerLonDegree_ = MERCATOR_RANGE / 360;
+    			this.pixelsPerLonRadian_ = MERCATOR_RANGE / (2 * Math.PI);
+			};
+
+			MercatorProjection.prototype.fromLatLngToPoint = function(latLng, opt_point) {
+			    var me = this;
+			
+			    var point = opt_point || new google.maps.Point(0, 0);
+			
+			    var origin = me.pixelOrigin_;
+			    point.x = origin.x + latLng.lng() * me.pixelsPerLonDegree_;
+			    // NOTE(appleton): Truncating to 0.9999 effectively limits latitude to
+			    // 89.189.  This is about a third of a tile past the edge of the world tile.
+			    var siny = bound(Math.sin(degreesToRadians(latLng.lat())), -0.9999, 0.9999);
+			    point.y = origin.y + 0.5 * Math.log((1 + siny) / (1 - siny)) * -me.pixelsPerLonRadian_;
+			    return point;
+			};
+			
+			MercatorProjection.prototype.fromDivPixelToLatLng = function(pixel, zoom) {
+			    var me = this;
+			
+			    var origin = me.pixelOrigin_;
+			    var scale = Math.pow(2, zoom);
+			    var lng = (pixel.x / scale - origin.x) / me.pixelsPerLonDegree_;
+			    var latRadians = (pixel.y / scale - origin.y) / -me.pixelsPerLonRadian_;
+			    var lat = radiansToDegrees(2 * Math.atan(Math.exp(latRadians)) - Math.PI / 2);
+			    return new google.maps.LatLng(lat, lng);
+			};
+			
+			MercatorProjection.prototype.fromDivPixelToSphericalMercator = function(pixel, zoom) {
+			    var me = this;
+			    var coord = me.fromDivPixelToLatLng(pixel, zoom);
+			
+			    var r= 6378137.0;
+			    var x = r* degreesToRadians(coord.lng());
+			    var latRad = degreesToRadians(coord.lat());
+			    var y = (r/2) * Math.log((1+Math.sin(latRad))/ (1-Math.sin(latRad)));
+			
+			    return new google.maps.Point(x,y);
+			};
+
+		</script>
+		
+	</head>
+
+	<body>
+		
+		<div id="map" style="height: 500px; width: 500px;"></div>
+		
+	</body>
+</html>
