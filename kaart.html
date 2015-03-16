@@ -12,6 +12,7 @@
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 		
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<script type="text/javascript" src="js/gmaps.js"></script>
@@ -33,7 +34,29 @@
 					title : 'Cantrijn',
 					infoWindow : {
 						content : '<p>Dit is cantrijn</p>'
-					}
+												}
+				});
+				
+				map.addControl({
+						position: 'top_right',
+						content: 'Fietskaart',
+						style: {
+							margin: '5px',
+							padding: '1px 6px',
+							border: 'solid 1px #717B87',
+							background: '#fff'
+						},
+						events: {
+							click: function(){
+								var visible = $('.wmslayer').css("visibility");
+								if (visible == "hidden"){
+									$('.wmslayer').css({"visibility":"visible"});
+								}
+								else{
+									$('.wmslayer').css({"visibility":"hidden"});
+								}
+							}
+						}
 				});
 				
 				var getTile = function(coord, zoom, ownerDocument) {
@@ -62,6 +85,7 @@
 					div.innerHTML = '<img src="http://geodata.nationaalgeoregister.nl/fietsknooppuntennetwerk/wms?LAYERS=netwerken%2Cknooppunten&TRANSPARENT=true&FORMAT=image%2Fpng&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&SRS=EPSG%3A900913&amp;BBOX='+bbox+'&WIDTH=256&HEIGHT=256" style="width: 256px; height: 256px; position: relative; opacity: 0.6;">';
 					div.style.width = this.tileSize.width + 'px';
 					div.style.height = this.tileSize.height + 'px';
+					div.className = "wmslayer";
 					return div;
 				};
 
