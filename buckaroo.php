@@ -32,7 +32,7 @@
 		<link rel="stylesheet" href="style/index.css" type="text/css"/>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script type="text/javascript" src="js/jquery.crypt.js"></script>
-		<script type="text/javascript" src="js/ics.js"></script>
+		<script type="text/javascript" src="js/ics.deps.min.js"></script>
 		
 		<script>
     		var cal = ics();
@@ -41,6 +41,7 @@
 			cal.addEvent('New Years', 'Watch the ball drop!', 'New York', '01/01/2015', '01/01/2015');
 			//cal.addEvent(title, description, location, startDate + ' ' + startTime, endDate + ' ' + endTime);
 			console.log(cal.calendar());
+			//cal.download('evenementen');
 		</script>
 
 	</head>
@@ -137,6 +138,9 @@
 							}
 						?>
 						</p>
+						
+						<iframe src="https://www.google.com/calendar/embed?src=nl.dutch%23holiday%40group.v.calendar.google.com&ctz=Europe/Amsterdam" style="border: 0" width="700" height="600" frameborder="0" scrolling="no"></iframe>
+						
 					</content>
 
 				</article>
