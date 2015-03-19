@@ -36,12 +36,33 @@
 		
 		<script>
     		var cal = ics();
-    		cal.addEvent('Demo Event', 'This is thirty minut event', 'Nome, AK', '8/7/2013 5:30', '8/9/2013 6:00');
-    		cal.addEvent('Christmas', 'Christian holiday celebrating the birth of Jesus Christ', 'Bethlehem', '12/25/2014 17:00', '12/25/2014 19:00');
-			cal.addEvent('New Years', 'Watch the ball drop!', 'New York', '01/01/2015', '01/01/2015');
+    		cal.addEvent('Demo Event', 'This is thirty minut event', 'Nome, AK', '8/7/2015 5:30', '8/9/2015 6:00');
+    		cal.addEvent('Christmas', 'Christian holiday celebrating the birth of Jesus Christ', 'Bethlehem', '12/25/2015 17:00', '12/25/2015 19:00');
+			cal.addEvent('New Years', 'Watch the ball drop!', 'New York', '01/01/2016', '01/01/2016');
 			//cal.addEvent(title, description, location, startDate + ' ' + startTime, endDate + ' ' + endTime);
 			console.log(cal.calendar());
-			//cal.download('evenementen');
+			
+			function download(){
+				var today = new Date();
+				var dd = today.getDate();
+				var mm = today.getMonth()+1; //January is 0!
+				var yyyy = today.getFullYear();
+				var h = today.getHours();
+				var m = today.getMinutes();
+				var s = today.getSeconds();
+
+				if(dd<10) {
+				    dd='0'+dd
+				} 
+				
+				if(mm<10) {
+				    mm='0'+mm
+				} 
+				
+				today = dd+'-'+mm+'-'+yyyy + '-' + h + m + s;
+				cal.download('evenementen'+today );
+			}
+			
 		</script>
 
 	</head>
@@ -139,7 +160,7 @@
 						?>
 						</p>
 						
-						<iframe src="https://www.google.com/calendar/embed?src=nl.dutch%23holiday%40group.v.calendar.google.com&ctz=Europe/Amsterdam" style="border: 0" width="700" height="600" frameborder="0" scrolling="no"></iframe>
+						<iframe src="https://www.google.com/calendar/embed?src=ko8jkhv072ive92va26u8plh1c%40group.calendar.google.com&ctz=Europe/Amsterdam" style="border: 0" width="700" height="600" frameborder="0" scrolling="no"></iframe>
 						
 					</content>
 
