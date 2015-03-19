@@ -32,6 +32,16 @@
 		<link rel="stylesheet" href="style/index.css" type="text/css"/>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script type="text/javascript" src="js/jquery.crypt.js"></script>
+		<script type="text/javascript" src="js/ics.js"></script>
+		
+		<script>
+    		var cal = ics();
+    		cal.addEvent('Demo Event', 'This is thirty minut event', 'Nome, AK', '8/7/2013 5:30', '8/9/2013 6:00');
+    		cal.addEvent('Christmas', 'Christian holiday celebrating the birth of Jesus Christ', 'Bethlehem', '12/25/2014 17:00', '12/25/2014 19:00');
+			cal.addEvent('New Years', 'Watch the ball drop!', 'New York', '01/01/2015', '01/01/2015');
+			//cal.addEvent(title, description, location, startDate + ' ' + startTime, endDate + ' ' + endTime);
+			console.log(cal.calendar());
+		</script>
 
 	</head>
 	<script type="text/javascript">
