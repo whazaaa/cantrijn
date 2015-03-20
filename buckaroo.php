@@ -160,7 +160,7 @@
 						?>
 						</p>
 						
-						<iframe src="https://www.google.com/calendar/embed?src=ko8jkhv072ive92va26u8plh1c%40group.calendar.google.com&ctz=Europe/Amsterdam" style="border: 0" width="700" height="600" frameborder="0" scrolling="no"></iframe>
+						<iframe src="https://www.google.com/calendar/embed?src=nl.dutch%23holiday%40group.v.calendar.google.com&ctz=Europe/Amsterdam" style="border: 0" width="700" height="600" frameborder="0" scrolling="no"></iframe>
 						
 					</content>
 
