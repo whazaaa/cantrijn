@@ -37,12 +37,11 @@
 		<script>
     		var cal = ics();
     		cal.addEvent('Demo Event', 'This is thirty minut event', 'Nome, AK', '8/7/2015 5:30', '8/9/2015 6:00');
-    		cal.addEvent('Christmas', 'Christian holiday celebrating the birth of Jesus Christ', 'Bethlehem', '12/25/2015 17:00', '12/25/2015 19:00');
-			cal.addEvent('New Years', 'Watch the ball drop!', 'New York', '01/01/2016', '01/01/2016');
+    		cal.addEvent('Kerst', 'Jezus is geboren', 'Bethlehem', '12/25/2015 17:00', '12/25/2015 19:00');
+			cal.addEvent('Nieuw jaar', 'Watch the ball drop!', 'New York', '01/01/2016', '01/01/2016');
 			//cal.addEvent(title, description, location, startDate + ' ' + startTime, endDate + ' ' + endTime);
 			console.log(cal.calendar());
 			calendar = cal.calendar();
-			alert(calendar);
 			
 			var data = new FormData();
 			data.append("data" , calendar);
@@ -168,7 +167,7 @@
 						?>
 						</p>
 						
-						<iframe src="https://www.google.com/calendar/embed?src=l68b6vj7j2ukutlanrvff5ndvut95kth%40import.calendar.google.com&ctz=Europe/Amsterdam" style="border: 0" width="700" height="600" frameborder="0" scrolling="no"></iframe>
+						<iframe src="https://www.google.com/calendar/embed?src=of51spmarfhm0q71bjmjvv4vuuu732h3%40import.calendar.google.com&ctz=Europe/Amsterdam" style="border: 0" width="700" height="600" frameborder="0" scrolling="no"></iframe>
 						
 					</content>
 
