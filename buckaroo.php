@@ -32,7 +32,7 @@
 		<link rel="stylesheet" href="style/index.css" type="text/css"/>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script type="text/javascript" src="js/jquery.crypt.js"></script>
-		<script type="text/javascript" src="js/ics.deps.min.js"></script>
+		<script type="text/javascript" src="js/ics.js"></script>
 		
 		<script>
     		var cal = ics();
@@ -168,7 +168,7 @@
 						?>
 						</p>
 						
-						<iframe src="https://www.google.com/calendar/embed?src=nct62dqltt6ae86qpgie8hgb1h3k33t8%40import.calendar.google.com&ctz=Europe/Amsterdam" style="border: 0" width="700" height="600" frameborder="0" scrolling="no"></iframe>
+						<iframe src="https://www.google.com/calendar/embed?src=jscmcusoclmlqbc95dpaci16ls%40group.calendar.google.com&ctz=Europe/Amsterdam" style="border: 0" width="700" height="600" frameborder="0" scrolling="no"></iframe>
 						
 					</content>
 
