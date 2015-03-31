@@ -81,7 +81,7 @@
 			var culture = "nl-NL";
 			var currency = "EUR";
 			var invoice = $('#Brq_invoicenumber').val();
-			var websiteKey = "K63U66RHdS"
+			var websiteKey = "K63U66RHdS";
 			var secretKey = "DCE476532C2345F1BEF8E6A9DCC351AE";
 			var email = $('#add_email').val();
 			var vallues = "add_email="+email+"Brq_amount="+ammount+"Brq_culture="+culture+"Brq_currency="+currency+"Brq_invoicenumber="+invoice+"Brq_websitekey="+websiteKey+secretKey;
