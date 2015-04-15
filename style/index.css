@@ -402,4 +402,7 @@ h3{
 	}
 }
 
-
+/* normalize.css is uckin' with my shi-. */
+ul {
+  list-style: circle;
+}

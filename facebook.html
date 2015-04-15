@@ -11,6 +11,51 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="stylesheet" href="style/index.css" type="text/css"/>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		
+		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+			api_key: 78jptwb67fs0b1
+			onLoad:  Linkedin.init
+		</script>
+		
+		<script type="text/javascript">
+		    $(document).ready(function() {
+		    (function($){
+			    var $MessageList = $('#js-messages');
+			
+			    function message(p_sMessage){
+			        $MessageList.append($('<li>' + p_sMessage + '</li>'));
+			    }
+			    
+			    window.Linkedin = {
+			        init : function(){
+			            message('The Linkedin JS has loaded.');
+			            message('You can now login.');
+			            
+			            $('.IN-widget').bind('click', function(){
+			                message('You just clicked the Login Button');
+			            });
+			        }
+			        , onAuthCallback : function(){
+			            message('You just logged in.');
+			            message('Will retrieve your info.');
+			        }
+			        , onLogoutCallback : function(){
+			            message('You just logged out.');
+			        }
+			        , userData : function(p_oUserInfo){
+			            message('Your user data was received:');
+			            message(''
+			                    + ' <img src="' + p_oUserInfo.pictureUrl + '" \/>'
+			                    + p_oUserInfo.firstName + ' ' + p_oUserInfo.lastName
+			                    + ' -- ' + p_oUserInfo.headline
+			                    + ' (' + p_oUserInfo.id + ')'
+			                   );
+			        }
+			    };    
+			}(jQuery));
+			});
+		</script>
 
 	</head>
 
@@ -117,6 +162,8 @@
 				});
 			}
 		</script>
+		
+		
 
 		<div id="fb-root"></div>
 
@@ -164,16 +211,47 @@
 						-->
 
 						<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button><!--,user_birthday,user_hometown-->
+						
+						<div class="page">
+						    <h1>Linkedin JS API Example</h1>
+						
+						    <ul id="js-messages">
+						        <li>Messages from our code will appear here.</li>
+						    </ul>
+						</div>
+						
+						    <!-- The following displays a Linkedin Login button
+								 The callback in data-onAuth will be called when the user is logged in
+						    	 The callback in data-onLogout will be called when the user logs out 
+						      -->
+						    <script type="IN/Login"
+						            data-onAuth="Linkedin.onAuthCallback"
+						            data-onLogout="Linkedin.onLogoutCallback"
+						    >
+						        <!-- This is just  a simple trick to pass the user's data to our script
+									 without having to do another API call.
+								  -->
+						        <img src="http://dummyimage.com/1x1/F.gif" onload="
+						        Linkedin.userData({
+						              id        : '<?js= id ?>'
+						            , firstName : '<?js= firstName ?>'
+						            , lastName  : '<?js= lastName ?>'
+						            , headline  : '<?js= headline ?>'
+						            , pictureUrl: '<?js= pictureUrl ?>'
+						        });
+						        " />
+						    </script>
+						<!-- 
+							 This loads the Linkedin JS API.
+							 The onLoad callback is called when the Linkedin JS API has been loaded.
+						-->
+
 
 						<div id="status">
 
 						</div>
 						
-						<div style="position:relative;min-width:160px;max-width:320px;max-height:568px;min-height:284px">
-							<div style="position:relative;height:0;width:100%;padding-bottom:177%">
-								<iframe src="https://fyu.se/v/embed/q35janxayx?autoplay=1" width="100%" height="100%" style="position:absolute;width:100%;height:100%;left:0;top:0" frameborder="0" scrolling="no" allowfullscreen></iframe>
-							</div>
-						</div>
+						
 
 					</content>
 				</article>
