@@ -13,159 +13,44 @@
 		<link rel="stylesheet" href="style/index.css" type="text/css"/>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		
-		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
-			api_key: 78jptwb67fs0b1
-			onLoad:  Linkedin.init
+				
+		<script type="text/javascript" src="//platform.linkedin.com/in.js">
+		    api_key: 78jptwb67fs0b1
+		    authorize: false
+		    onLoad: onLinkedInLoad
 		</script>
 		
 		<script type="text/javascript">
-		    $(document).ready(function() {
-		    (function($){
-			    var $MessageList = $('#js-messages');
-			
-			    function message(p_sMessage){
-			        $MessageList.append($('<li>' + p_sMessage + '</li>'));
-			    }
-			    
-			    window.Linkedin = {
-			        init : function(){
-			            message('The Linkedin JS has loaded.');
-			            message('You can now login.');
-			            
-			            $('.IN-widget').bind('click', function(){
-			                message('You just clicked the Login Button');
-			            });
-			        }
-			        , onAuthCallback : function(){
-			            message('You just logged in.');
-			            message('Will retrieve your info.');
-			        }
-			        , onLogoutCallback : function(){
-			            message('You just logged out.');
-			        }
-			        , userData : function(p_oUserInfo){
-			            message('Your user data was received:');
-			            message(''
-			                    + ' <img src="' + p_oUserInfo.pictureUrl + '" \/>'
-			                    + p_oUserInfo.firstName + ' ' + p_oUserInfo.lastName
-			                    + ' -- ' + p_oUserInfo.headline
-			                    + ' (' + p_oUserInfo.id + ')'
-			                   );
-			        }
-			    };    
-			}(jQuery));
-			});
+		
+		    // Setup an event listener to make an API call once auth is complete
+		    function onLinkedInLoad() {
+		        IN.Event.on(IN, "auth", getProfileData);
+		    }
+		
+		    // Handle the successful return from the API call
+		    function onSuccess(data) {
+		        // Pre-populate your form fields here once you know the call 
+		        // came back successfully
+		        console.log(data.id);
+		    }
+		
+		    // Handle an error response from the API call
+		    function onError(error) {
+		        console.log(error);
+		    }
+		
+		    // Use the API call wrapper to request the member's basic profile data
+		    function getProfileData() {
+		        IN.API.Raw("/people/~:(firstName,lastName,id)").result(onSuccess).error(onError);
+		    }
+		
 		</script>
 
 	</head>
 
 	<body class="body">
+				
 
-		<script>
-			window.fbAsyncInit = function() {
-				FB.init({
-					appId : '403323426514540',//364124933658095
-					cookie : true, // enable cookies to allow the server to access
-					// the session
-					xfbml : true, // parse social plugins on this page
-					version : 'v2.1' // use version 2.1
-				});
-
-				// Now that we've initialized the JavaScript SDK, we call
-				// FB.getLoginStatus().  This function gets the state of the
-				// person visiting this page and can return one of three states to
-				// the callback you provide.  They can be:
-				//
-				// 1. Logged into your app ('connected')
-				// 2. Logged into Facebook, but not your app ('not_authorized')
-				// 3. Not logged into Facebook and can't tell if they are logged into
-				//    your app or not.
-				//
-				// These three cases are handled in the callback function.
-
-				FB.getLoginStatus(function(response) {
-					statusChangeCallback(response);
-				});
-
-			};
-
-			// Load the SDK asynchronously
-			( function(d, s, id) {
-					var js,
-					    fjs = d.getElementsByTagName(s)[0];
-					if (d.getElementById(id))
-						return;
-					js = d.createElement(s);
-					js.id = id;
-					js.src = "//connect.facebook.net/nl_NL/sdk.js";
-					fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));
-
-			// This is called with the results from from FB.getLoginStatus().
-			function statusChangeCallback(response) {
-				console.log('statusChangeCallback');
-				console.log(response);
-				// The response object is returned with a status field that lets the
-				// app know the current login status of the person.
-				// Full docs on the response object can be found in the documentation
-				// for FB.getLoginStatus().
-				if (response.status === 'connected') {
-					// Logged into your app and Facebook.
-					testAPI();
-				} else if (response.status === 'not_authorized') {
-					// The person is logged into Facebook, but not your app.
-					document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
-				} else {
-					// The person is not logged into Facebook, so we're not sure if
-					// they are logged into this app or not.
-					document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
-				}
-			}
-
-			// This function is called when someone finishes with the Login
-			// Button.  See the onlogin handler attached to it in the sample
-			// code below.
-			function checkLoginState() {
-				FB.getLoginStatus(function(response) {
-					statusChangeCallback(response);
-				});
-			}
-
-			// Here we run a very simple test of the Graph API after login is
-			// successful.  See statusChangeCallback() for when this call is made.
-			function testAPI() {
-				console.log('Welcome!  Fetching your information.... ');
-				FB.api('/me', function(response) {
-					console.log('Successful login for: ' + response.name);
-					document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '! ' + response.email/*+ ' ' + response.hometown.name + ' ' + response.birthday*/;
-				});
-			}
-
-			function logOut() {
-				FB.logout(function(response) {
-					console.log('Successful logout for: ' + response.name);
-					// Person is now logged out
-				});
-			}
-
-			function showUserInfo() {
-				FB.api('/me', function(response) {//Will return an array of values
-					console.log(JSON.stringify(response));
-				});
-			}
-
-			function showAccessToken() {
-				FB.getLoginStatus(function(response) {
-					if (response.status === 'connected') {
-						console.log(response.authResponse.accessToken);
-					}
-				});
-			}
-		</script>
-		
-		
-
-		<div id="fb-root"></div>
 
 		<header class="mainHeader">
 			<img src="img/starwars.jpg" alt="Logo"/>
@@ -204,52 +89,10 @@
 
 					<content>
 
-						<!--
-						Below we include the Login Button social plugin. This button uses
-						the JavaScript SDK to present a graphical Login button that triggers
-						the FB.login() function when clicked.
-						-->
-
-						<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button><!--,user_birthday,user_hometown-->
 						
-						<div class="page">
-						    <h1>Linkedin JS API Example</h1>
-						
-						    <ul id="js-messages">
-						        <li>Messages from our code will appear here.</li>
-						    </ul>
-						</div>
-						
-						    <!-- The following displays a Linkedin Login button
-								 The callback in data-onAuth will be called when the user is logged in
-						    	 The callback in data-onLogout will be called when the user logs out 
-						      -->
-						    <script type="IN/Login"
-						            data-onAuth="Linkedin.onAuthCallback"
-						            data-onLogout="Linkedin.onLogoutCallback"
-						    >
-						        <!-- This is just  a simple trick to pass the user's data to our script
-									 without having to do another API call.
-								  -->
-						        <img src="http://dummyimage.com/1x1/F.gif" onload="
-						        Linkedin.userData({
-						              id        : '<?js= id ?>'
-						            , firstName : '<?js= firstName ?>'
-						            , lastName  : '<?js= lastName ?>'
-						            , headline  : '<?js= headline ?>'
-						            , pictureUrl: '<?js= pictureUrl ?>'
-						        });
-						        " />
+						    <script type="IN/Login">
 						    </script>
-						<!-- 
-							 This loads the Linkedin JS API.
-							 The onLoad callback is called when the Linkedin JS API has been loaded.
-						-->
 
-
-						<div id="status">
-
-						</div>
 						
 						
 
@@ -258,33 +101,6 @@
 
 			</div>
 		</div>
-
-		<aside class="top-sidebar">
-			<article>
-				<h2>Log in</h2>
-				<iframe width="100%" height="160" frameborder="0" allowtransparency="true" src="http://demonl.cmember.nl/cmember/widget?naam=inloggen&parameters=wcode&waarden=F374996OVQ"></iframe>
-			</article>
-		</aside>
-
-		<aside class="middle-sidebar">
-			<article>
-				<h2>Berichten</h2>
-				<iframe width="100%" height="200" frameborder="0" allowtransparency="true" src="http://demonl.cmember.nl/cmember/widget?naam=berichten&parameters=wcode,aantal_berichten&waarden=F374996OVQ,3"></iframe>
-			</article>
-		</aside>
-
-		<aside class="bottom-sidebar">
-			<article>
-				<h2>Wachtwoord vergeten?</h2>
-				<iframe width="100%" height="170" frameborder="0" allowtransparency="true" src="http://demonl.cmember.nl/cmember/widget?naam=wachtwoord_vergeten&parameters=wcode&waarden=F374996OVQ"></iframe>
-			</article>
-		</aside>
-
-		<footer class="mainFooter">
-			<p>
-				Copyright &copy; Josja de Greef
-			</p>
-		</footer>
 
 	</body>
 
