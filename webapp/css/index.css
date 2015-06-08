@@ -138,6 +138,9 @@ body.slide-active {
 	.navbar-inverse .navbar-nav>.active>a{
 	    background-color:#5A5A5A;
 	}
+	.navbar-inverse .navbar-nav>.open>a{
+	    background-color: #5A5A5A;
+	}
 }
 @media (min-width:768px) { 
 	#page-content {
