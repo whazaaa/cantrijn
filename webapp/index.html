@@ -9,8 +9,8 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/jquery.zrssfeed.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="css/index.css" type="text/css"/>
+    <link href="http://demo.cantrijnict.nl/webapp/css/jquery.zrssfeed.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="http://demo.cantrijnict.nl/webapp/css/index.css" type="text/css"/>
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,34 +36,13 @@
    <div id="slidemenu">
      
     <ul class="nav navbar-nav">
-     <li class="active"><a href="#">Home</a></li>
-     <li><a href="#about">About</a></li>
-     <li><a href="#contact">Contact</a></li>
-     <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-      <ul class="dropdown-menu">
-       <li><a href="#">Action</a></li>
-       <li><a href="#">Another action</a></li>
-       <li><a href="#">Something else here</a></li>
-       <li class="divider"></li>
-       <li class="dropdown-header">Nav header</li>
-       <li><a href="#">Separated link</a></li>
-       <li><a href="#">One more separated link</a></li>
-       <li><a href="#">Action</a></li>
-       <li><a href="#">Another action</a></li>
-       <li><a href="#">Something else here</a></li>
-       <li class="divider"></li>
-       <li class="dropdown-header">Nav header</li>
-       <li><a href="#">Separated link</a></li>
-       <li><a href="#">One more separated link</a></li>
-       <li><a href="#">Action</a></li>
-       <li><a href="#">Another action</a></li>
-       <li><a href="#">Something else here</a></li>
-       <li class="divider"></li>
-       <li class="dropdown-header">Nav header</li>
-       <li><a href="#">Separated link test long title goes here</a></li>
-       <li><a href="#">One more separated link</a></li>
-      </ul>
-     </li>
+     <li class="active"><a href="http://oracle-pc:7777/apex/f?p=10000:99999">Dashboard</a></li>
+     <li><a href="f?p=10000:9999995">Mijn gegevens</a></li>
+     <li><a href="f?p=10000:999997">Leden</a></li>
+     <li><a href="f?p=10000:103000">Groepen</a></li>
+     <li><a href="f?p=10000:102000">Evenementen</a></li>
+     <li><a href="f?p=10000:999999">Nieuws</a></li>
+     <li><a href="#">Uitloggen</a></li>
     </ul>
           
    </div>
@@ -162,7 +141,14 @@
     
     <script type="text/javascript">
 	$(document).ready(function () {
-		$('#test').rssfeed('http://www.nu.nl/rss/Algemeen');
+		$('#test').rssfeed('http://www.nu.nl/rss/Algemeen',{
+			limit: 2,
+			media: false,
+			header: false,
+			content: false,
+			dateformat: 'date',
+			titletag: 'h4 class="rssTitle"'
+		});
 	});
 	</script>
     
